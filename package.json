@@ -1,0 +1,30 @@
+{
+  "name": "@sunnyag/react-coingecko",
+  "version": "0.0.0",
+  "description": "Fetch Coingecko prices in React apps",
+  "main": "dist/index.js",
+  "repository": "git@github.com:SunnyAggregator/react-coingecko.git",
+  "author": "Surya Khosla <surya@sunny.ag>",
+  "license": "LGPL-3.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@saberhq/eslint-config": "^0.16.0",
+    "@types/react": "^17.0.19",
+    "eslint": "^7.32.0",
+    "typescript": "^4.4.2"
+  },
+  "peerDependencies": {
+    "react": "^17.0"
+  },
+  "dependencies": {
+    "@saberhq/token-utils": "^0.16.0",
+    "swr": "^1.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint . --cache"
+  },
+  "files": ["src/", "dist/"]
+}
