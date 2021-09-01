@@ -7,24 +7,48 @@ const buildCoingeckoPricesURL = (tokens: readonly string[]): string =>
     "%2C"
   )}&vs_currencies=usd`;
 
-type PriceInfo = {
+/**
+ * Information about a specific token's price.
+ */
+export interface PriceInfo {
+  /**
+   * Price of the token, in USD.
+   */
   price: Fraction | null;
+  /**
+   * If true, the price is still loading.
+   */
   loading: boolean;
-};
+}
 
+/**
+ * Prices of each token.
+ */
 export type CoingeckoPrices<T extends string> = {
   [C in T]: PriceInfo;
 };
 
+/**
+ * Hook context.
+ */
 export interface UseCoingeckoPrices<T extends string> {
+  /**
+   * Prices of each token.
+   */
   prices: CoingeckoPrices<T>;
+  /**
+   * Error loading.
+   */
   error?: Error;
+  /**
+   * Whether or not the price is being updated.
+   */
   isValidating: boolean;
 }
 
 /**
- *
- * @returns Use the Coingecko prices.
+ * Fetches prices of tokens from CoinGecko.
+ * @returns The Coingecko prices.
  */
 export const useCoingeckoPrices = <T extends string>(
   tokens: readonly T[]
