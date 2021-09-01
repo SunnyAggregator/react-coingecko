@@ -1,11 +1,21 @@
 {
   "name": "@sunnyag/react-coingecko",
   "version": "0.0.0",
-  "description": "Fetch Coingecko prices in React apps",
+  "description": "Fetch CoinGecko prices in React apps",
   "main": "dist/index.js",
   "repository": "git@github.com:SunnyAggregator/react-coingecko.git",
   "author": "Surya Khosla <surya@sunny.ag>",
+  "homepage": "https://sunny.ag",
   "license": "LGPL-3.0",
+  "keywords": [
+    "coingecko",
+    "react",
+    "solana",
+    "cryptocurrency"
+  ],
+  "bugs": {
+    "url": "https://github.com/SunnyAggregator/react-coingecko/issues"
+  },
   "publishConfig": {
     "access": "public"
   },

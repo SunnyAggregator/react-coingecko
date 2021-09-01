@@ -1,6 +1,6 @@
 # react-coingecko
 
-[![License](https://img.shields.io/badge/license-LGPL-3.0)](https://github.com/SunnyAggregator/react-coingecko/blob/master/LICENSE)
+[![License](https://img.shields.io/npm/l/@sunnyag/react-coingecko)](https://github.com/SunnyAggregator/react-coingecko/blob/master/LICENSE)
 [![Build Status](https://img.shields.io/github/workflow/status/SunnyAggregator/react-coingecko/main/master)](https://github.com/SunnyAggregator/react-coingecko/actions/workflows/main.yml?query=branch%3Amaster)
 [![Contributors](https://img.shields.io/github/contributors/SunnyAggregator/react-coingecko)](https://github.com/SunnyAggregator/react-coingecko/graphs/contributors)
 
