@@ -1,6 +1,6 @@
 {
   "name": "@sunnyag/react-coingecko",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Fetch CoinGecko prices in React apps",
   "main": "dist/index.js",
   "repository": "git@github.com:SunnyAggregator/react-coingecko.git",
