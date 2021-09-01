@@ -36,6 +36,7 @@
   "scripts": {
     "build": "tsc",
     "lint": "eslint . --cache",
+    "lint:ci": "eslint . --max-warnings=0",
     "docs:generate": "typedoc --excludePrivate --includeVersion --out site/ src/index.ts"
   },
   "files": [
