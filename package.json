@@ -36,7 +36,7 @@
   "scripts": {
     "build": "tsc",
     "lint": "eslint . --cache",
-    "docs:generate": "typedoc --excludePrivate --includeVersion --out site/ts/ src/index.ts"
+    "docs:generate": "typedoc --excludePrivate --includeVersion --out site/ src/index.ts"
   },
   "files": [
     "src/",
