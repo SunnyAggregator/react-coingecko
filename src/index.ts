@@ -2,7 +2,7 @@ import { Fraction } from "@saberhq/token-utils";
 import { useMemo } from "react";
 import useSWR from "swr";
 
-const buildCoingeckoPricesURL = (tokens: readonly string[]): string =>
+const buildCoinGeckoPricesURL = (tokens: readonly string[]): string =>
   `https://api.coingecko.com/api/v3/simple/price?ids=${tokens.join(
     "%2C"
   )}&vs_currencies=usd`;
@@ -24,18 +24,18 @@ export interface PriceInfo {
 /**
  * Prices of each token.
  */
-export type CoingeckoPrices<T extends string> = {
+export type CoinGeckoPrices<T extends string> = {
   [C in T]: PriceInfo;
 };
 
 /**
  * Hook context.
  */
-export interface UseCoingeckoPrices<T extends string> {
+export interface UseCoinGeckoPrices<T extends string> {
   /**
    * Prices of each token.
    */
-  prices: CoingeckoPrices<T>;
+  prices: CoinGeckoPrices<T>;
   /**
    * Error loading.
    */
@@ -48,13 +48,13 @@ export interface UseCoingeckoPrices<T extends string> {
 
 /**
  * Fetches prices of tokens from CoinGecko.
- * @returns The Coingecko prices.
+ * @returns The CoinGecko prices.
  */
-export const useCoingeckoPrices = <T extends string>(
+export const useCoinGeckoPrices = <T extends string>(
   tokens: readonly T[]
-): UseCoingeckoPrices<T> => {
+): UseCoinGeckoPrices<T> => {
   const coingeckoPricesURL = useMemo(
-    () => buildCoingeckoPricesURL(tokens),
+    () => buildCoinGeckoPricesURL(tokens),
     [tokens]
   );
 
@@ -71,7 +71,7 @@ export const useCoingeckoPrices = <T extends string>(
     Error
   >(coingeckoPricesURL);
 
-  const prices: CoingeckoPrices<T> = useMemo(() => {
+  const prices: CoinGeckoPrices<T> = useMemo(() => {
     if (!coingeckoPriceDataRaw) {
       if (!error) {
         const loading = {
@@ -81,7 +81,7 @@ export const useCoingeckoPrices = <T extends string>(
         return tokens.reduce(
           (acc, t) => ({ ...acc, [t]: loading }),
           {}
-        ) as CoingeckoPrices<T>;
+        ) as CoinGeckoPrices<T>;
       } else {
         const error = {
           price: null,
@@ -90,7 +90,7 @@ export const useCoingeckoPrices = <T extends string>(
         return tokens.reduce(
           (acc, t) => ({ ...acc, [t]: error }),
           {}
-        ) as CoingeckoPrices<T>;
+        ) as CoinGeckoPrices<T>;
       }
     }
 
@@ -103,7 +103,7 @@ export const useCoingeckoPrices = <T extends string>(
         },
       }),
       {}
-    ) as CoingeckoPrices<T>;
+    ) as CoinGeckoPrices<T>;
   }, [coingeckoPriceDataRaw]);
 
   return { prices, error, isValidating };
