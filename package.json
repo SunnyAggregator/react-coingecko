@@ -30,7 +30,7 @@
     "react": "^17.0"
   },
   "dependencies": {
-    "@saberhq/token-utils": "^0.16.0",
+    "@saberhq/token-utils": "^0.18.0",
     "swr": "^1.0.0"
   },
   "scripts": {
