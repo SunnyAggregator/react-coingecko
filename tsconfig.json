@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["esnext"],
-    "module": "esnext",
+    "lib": ["ESNext", "DOM"],
+    "module": "ESNext",
     "moduleResolution": "node",
     "strict": true,
     "skipLibCheck": true,
@@ -12,6 +12,7 @@
     "declarationMap": true,
     "sourceMap": true,
     "declaration": true,
+    "importHelpers": true,
     "outDir": "dist/"
   },
   "include": ["src/"]

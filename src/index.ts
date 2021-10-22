@@ -2,6 +2,8 @@ import { Fraction } from "@saberhq/token-utils";
 import { useMemo } from "react";
 import useSWR from "swr";
 
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
 const buildCoinGeckoPricesURL = (tokens: readonly string[]): string =>
   `https://api.coingecko.com/api/v3/simple/price?ids=${tokens.join(
     "%2C"
@@ -69,7 +71,7 @@ export const useCoinGeckoPrices = <T extends string>(
       };
     },
     Error
-  >(coingeckoPricesURL);
+  >(coingeckoPricesURL, fetcher);
 
   const prices: CoinGeckoPrices<T> = useMemo(() => {
     if (!coingeckoPriceDataRaw) {
