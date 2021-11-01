@@ -93,10 +93,10 @@
     eslint-plugin-unused-imports "^1.1.5"
     prettier "^2.4.1"
 
-"@saberhq/solana-contrib@^1.3.18":
-  version "1.3.18"
-  resolved "https://registry.yarnpkg.com/@saberhq/solana-contrib/-/solana-contrib-1.3.18.tgz#07087cfe5e01330dde7289f59a62379bc256597b"
-  integrity sha512-aLEYVpSwTI9ZBLCvhdmE7VRKL6ZdcmIaoJDl7jjs9wyWMObcI5W7e6cZZi0B/r47iAweVVmpz0hj8TMU32a1VQ==
+"@saberhq/solana-contrib@^1.5.2":
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/@saberhq/solana-contrib/-/solana-contrib-1.5.2.tgz#64195bf49f57a9a506d5ce19f45e8cf74105aeaf"
+  integrity sha512-jNzWA084/hHxS9ubIcnrsekdpG3oDSaJKwcPn02nCEAjw6gSTMjrK/8hxtkI6OITibfYYyIYxjs0QZ1CNcxcmg==
   dependencies:
     "@types/promise-retry" "^1.1.3"
     "@types/retry" "^0.12.1"
@@ -106,11 +106,11 @@
     tslib "^2.3.1"
 
 "@saberhq/token-utils@^1.3.18":
-  version "1.3.18"
-  resolved "https://registry.yarnpkg.com/@saberhq/token-utils/-/token-utils-1.3.18.tgz#adafe58ba06923b91343629cc72e85e32d5106f3"
-  integrity sha512-tPeBwzcZZ9JzEJGh7jBgq17ym0RsmQMGHdvzrlvPfqcFnOq92V6v9ls0wO6xp8q45istSp1I/jo9k6O8LiqxQg==
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/@saberhq/token-utils/-/token-utils-1.5.2.tgz#807a8eb9b2ac0766a9474da6fb02a7471f7001e5"
+  integrity sha512-2sIFhGW2wB5GpFEAz45IpDiQaz0kRxQbFHWLMRjNiayuvY43ddnvpw8XGiQX68/VdIEasxjIrhe1KT2ZxwtqqQ==
   dependencies:
-    "@saberhq/solana-contrib" "^1.3.18"
+    "@saberhq/solana-contrib" "^1.5.2"
     "@solana/buffer-layout" "^3.0.0"
     "@solana/spl-token" "^0.1.8"
     "@ubeswap/token-math" "^4.2.0"
