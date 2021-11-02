@@ -81,9 +81,9 @@
     fastq "^1.6.0"
 
 "@saberhq/eslint-config@^1.3.18":
-  version "1.3.18"
-  resolved "https://registry.yarnpkg.com/@saberhq/eslint-config/-/eslint-config-1.3.18.tgz#c022f2df1da94f5e36a6afdf567796e65db1796b"
-  integrity sha512-H08gY+pgt65XfUM5Dxd+F7xY9tqvmu8Q5Sxt5HCTO4hvafACU9avqq+DzYs0Dl1R6ewX6S5bqsA1Av0lj5f/jA==
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/@saberhq/eslint-config/-/eslint-config-1.6.2.tgz#28151054f8832471fe8decdc3d322213ddd50233"
+  integrity sha512-ondmpX2UkdHDO3QREkRP6WtGUoBFtuszwCCeLC5AbLLSn7L8ss9LmVu/PhYgTYF643EyZqzeT/yKUhDhoHJAyA==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^4.33.0"
     "@typescript-eslint/parser" "^4.33.0"
