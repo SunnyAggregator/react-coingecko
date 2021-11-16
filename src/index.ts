@@ -66,7 +66,7 @@ export const useCoinGeckoPrices = <T extends string>(
     isValidating,
   } = useSWR<
     {
-      [C in T]: {
+      [C in T]?: {
         usd: number;
       };
     },
@@ -96,16 +96,14 @@ export const useCoinGeckoPrices = <T extends string>(
       }
     }
 
-    return tokens.reduce(
-      (acc, t) => ({
-        ...acc,
-        [t]: {
-          price: Fraction.fromNumber(coingeckoPriceDataRaw[t].usd),
-          loading: false,
-        },
-      }),
-      {}
-    ) as CoinGeckoPrices<T>;
+    return tokens.reduce((acc: CoinGeckoPrices<T>, t) => {
+      const priceInfo = coingeckoPriceDataRaw[t];
+      acc[t] = {
+        price: priceInfo ? Fraction.fromNumber(priceInfo.usd) : null,
+        loading: false,
+      };
+      return acc;
+    }, {} as CoinGeckoPrices<T>);
   }, [coingeckoPriceDataRaw]);
 
   return { prices, error, isValidating };
