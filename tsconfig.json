@@ -1,19 +1,21 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "module": "CommonJS",
+    "target": "ES2015",
     "lib": ["ESNext", "DOM"],
-    "module": "ESNext",
-    "moduleResolution": "node",
+
     "strict": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true,
-    "declarationMap": true,
+
     "sourceMap": true,
+    "inlineSources": true,
     "declaration": true,
+    "declarationMap": true,
     "importHelpers": true,
-    "outDir": "dist/"
+    "outDir": "dist/cjs/"
   },
   "include": ["src/"]
 }

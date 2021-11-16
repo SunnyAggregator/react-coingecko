@@ -2,7 +2,8 @@
   "name": "@sunnyag/react-coingecko",
   "version": "2.0.0",
   "description": "Fetch CoinGecko prices in React apps",
-  "main": "dist/index.js",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "repository": "git@github.com:SunnyAggregator/react-coingecko.git",
   "author": "Surya Khosla <surya@sunny.ag>",
   "homepage": "https://sunny.ag",
@@ -37,7 +38,8 @@
     "tslib": "^2.3.1"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && tsc -P tsconfig.esm.json",
+    "clean": "rm -fr dist/",
     "lint": "eslint . --cache",
     "lint:ci": "eslint . --max-warnings=0",
     "docs:generate": "typedoc --excludePrivate --includeVersion --out site/ src/index.ts"
