@@ -11,7 +11,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Cache Node modules
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: cache-node-modules
         with:
           path: ./node_modules
