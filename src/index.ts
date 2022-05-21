@@ -1,5 +1,5 @@
 import { Fraction } from "@saberhq/token-utils";
-import type { UseQueryResult } from "react-query";
+import type { UseQueryOptions, UseQueryResult } from "react-query";
 import { useQuery } from "react-query";
 
 import { fetchNullable } from "./fetchNullable";
@@ -31,29 +31,47 @@ export type CoinGeckoPrices<T extends string> = {
   [C in T]: Fraction | null;
 };
 
+export const makeCoinGeckoPricesQuery = <T extends string>(
+  tokens: readonly T[]
+): UseQueryOptions<
+  CoinGeckoPrices<T>,
+  unknown,
+  CoinGeckoPrices<T>,
+  string[]
+> => {
+  return {
+    queryKey: ["coinGeckoPrices", ...tokens],
+    queryFn: async ({ signal }) => {
+      const coingeckoPricesURL = buildCoinGeckoPricesURL(tokens);
+      const rawData = await fetchNullable<{
+        [C in T]?: {
+          usd: number;
+        };
+      }>(coingeckoPricesURL, signal);
+      if (!rawData) {
+        return createEmptyResult(tokens);
+      }
+
+      const ret = {} as CoinGeckoPrices<T>;
+      tokens.forEach((token) => {
+        const priceInfo = rawData[token];
+        ret[token] = priceInfo ? Fraction.fromNumber(priceInfo.usd) : null;
+      });
+      return ret;
+    },
+  };
+};
+
 /**
  * Fetches prices of tokens from CoinGecko.
  * @returns The CoinGecko prices.
  */
 export const useCoinGeckoPrices = <T extends string>(
-  tokens: readonly T[]
-): UseQueryResult<CoinGeckoPrices<T>> => {
-  return useQuery(["coinGeckoPrices", ...tokens], async () => {
-    const coingeckoPricesURL = buildCoinGeckoPricesURL(tokens);
-    const rawData = await fetchNullable<{
-      [C in T]?: {
-        usd: number;
-      };
-    }>(coingeckoPricesURL);
-    if (!rawData) {
-      return createEmptyResult(tokens);
-    }
-
-    const ret = {} as CoinGeckoPrices<T>;
-    tokens.forEach((token) => {
-      const priceInfo = rawData[token];
-      ret[token] = priceInfo ? Fraction.fromNumber(priceInfo.usd) : null;
-    });
-    return ret;
-  });
+  tokens: readonly T[],
+  options: Omit<
+    UseQueryOptions<CoinGeckoPrices<T>, unknown, CoinGeckoPrices<T>, string[]>,
+    "queryKey" | "queryFn"
+  > = {}
+): UseQueryResult<CoinGeckoPrices<T>, unknown> => {
+  return useQuery({ ...options, ...makeCoinGeckoPricesQuery(tokens) });
 };
