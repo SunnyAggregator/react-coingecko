@@ -1,52 +1,35 @@
 import { Fraction } from "@saberhq/token-utils";
-import { useMemo } from "react";
-import useSWR from "swr";
+import type { UseQueryResult } from "react-query";
+import { useQuery } from "react-query";
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
+import { fetchNullable } from "./fetchNullable";
 
-const buildCoinGeckoPricesURL = (tokens: readonly string[]): string =>
+/**
+ * Constructs the URL to retrieve prices from CoinGecko.
+ * @param tokens
+ * @returns
+ */
+export const buildCoinGeckoPricesURL = (tokens: readonly string[]): string =>
   `https://api.coingecko.com/api/v3/simple/price?ids=${tokens.join(
     "%2C"
   )}&vs_currencies=usd`;
 
-/**
- * Information about a specific token's price.
- */
-export interface PriceInfo {
-  /**
-   * Price of the token, in USD.
-   */
-  price: Fraction | null;
-  /**
-   * If true, the price is still loading.
-   */
-  loading: boolean;
-}
+const createEmptyResult = <T extends string>(
+  tokens: readonly T[]
+): CoinGeckoPrices<T> => {
+  const ret = {} as CoinGeckoPrices<T>;
+  tokens.forEach((token) => {
+    ret[token] = null;
+  });
+  return ret;
+};
 
 /**
  * Prices of each token.
  */
 export type CoinGeckoPrices<T extends string> = {
-  [C in T]: PriceInfo;
+  [C in T]: Fraction | null;
 };
-
-/**
- * Hook context.
- */
-export interface UseCoinGeckoPrices<T extends string> {
-  /**
-   * Prices of each token.
-   */
-  prices: CoinGeckoPrices<T>;
-  /**
-   * Error loading.
-   */
-  error?: Error;
-  /**
-   * Whether or not the price is being updated.
-   */
-  isValidating: boolean;
-}
 
 /**
  * Fetches prices of tokens from CoinGecko.
@@ -54,57 +37,23 @@ export interface UseCoinGeckoPrices<T extends string> {
  */
 export const useCoinGeckoPrices = <T extends string>(
   tokens: readonly T[]
-): UseCoinGeckoPrices<T> => {
-  const coingeckoPricesURL = useMemo(
-    () => buildCoinGeckoPricesURL(tokens),
-    [tokens]
-  );
-
-  const {
-    data: coingeckoPriceDataRaw,
-    error,
-    isValidating,
-  } = useSWR<
-    {
+): UseQueryResult<CoinGeckoPrices<T>> => {
+  return useQuery(["coinGeckoPrices", ...tokens], async () => {
+    const coingeckoPricesURL = buildCoinGeckoPricesURL(tokens);
+    const rawData = await fetchNullable<{
       [C in T]?: {
         usd: number;
       };
-    },
-    Error
-  >(coingeckoPricesURL, fetcher);
-
-  const prices: CoinGeckoPrices<T> = useMemo(() => {
-    if (!coingeckoPriceDataRaw) {
-      if (!error) {
-        const loading = {
-          price: null,
-          loading: true,
-        };
-        return tokens.reduce(
-          (acc, t) => ({ ...acc, [t]: loading }),
-          {}
-        ) as CoinGeckoPrices<T>;
-      } else {
-        const error = {
-          price: null,
-          loading: false,
-        };
-        return tokens.reduce(
-          (acc, t) => ({ ...acc, [t]: error }),
-          {}
-        ) as CoinGeckoPrices<T>;
-      }
+    }>(coingeckoPricesURL);
+    if (!rawData) {
+      return createEmptyResult(tokens);
     }
 
-    return tokens.reduce((acc: CoinGeckoPrices<T>, t) => {
-      const priceInfo = coingeckoPriceDataRaw[t];
-      acc[t] = {
-        price: priceInfo ? Fraction.fromNumber(priceInfo.usd) : null,
-        loading: false,
-      };
-      return acc;
-    }, {} as CoinGeckoPrices<T>);
-  }, [coingeckoPriceDataRaw]);
-
-  return { prices, error, isValidating };
+    const ret = {} as CoinGeckoPrices<T>;
+    tokens.forEach((token) => {
+      const priceInfo = rawData[token];
+      ret[token] = priceInfo ? Fraction.fromNumber(priceInfo.usd) : null;
+    });
+    return ret;
+  });
 };

@@ -15,11 +15,15 @@
 
 ## Installing
 
+First, install and set up [React Query](https://react-query.tanstack.com/). Then run:
+
 ```bash
 yarn add @sunnyag/react-coingecko
 ```
 
 ## Usage
+
+Within a React Query context, run:
 
 ```typescript
 const { prices } = useCoinGecko(["bitcoin", "ethereum", "solana"]);
