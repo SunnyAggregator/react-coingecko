@@ -33,6 +33,10 @@ jobs:
           echo 'npmAuthToken: "${NPM_AUTH_TOKEN}"' >> .yarnrc.yml
       - name: Publish
         run: yarn npm publish
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          generate_release_notes: true
 
   site:
     runs-on: ubuntu-latest
