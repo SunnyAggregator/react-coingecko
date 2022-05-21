@@ -1,6 +1,0 @@
-{
-    "extends": "@saberhq",
-    "parserOptions": {
-        "project": "tsconfig.json"
-    }
-}
