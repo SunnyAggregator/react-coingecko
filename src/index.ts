@@ -1,4 +1,3 @@
-import { Fraction } from "@saberhq/token-utils";
 import type { UseQueryOptions, UseQueryResult } from "react-query";
 import { useQuery } from "react-query";
 
@@ -28,7 +27,7 @@ const createEmptyResult = <T extends string>(
  * Prices of each token.
  */
 export type CoinGeckoPrices<T extends string> = {
-  [C in T]: Fraction | null;
+  [C in T]: number | null;
 };
 
 export const makeCoinGeckoPricesQuery = <T extends string>(
@@ -55,7 +54,7 @@ export const makeCoinGeckoPricesQuery = <T extends string>(
       const ret = {} as CoinGeckoPrices<T>;
       tokens.forEach((token) => {
         const priceInfo = rawData[token];
-        ret[token] = priceInfo ? Fraction.fromNumber(priceInfo.usd) : null;
+        ret[token] = priceInfo ? priceInfo.usd : null;
       });
       return ret;
     },
