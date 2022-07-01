@@ -24,7 +24,7 @@
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.3",
     "@saberhq/eslint-config": "^1.13.10",
-    "@saberhq/tsconfig": "^1.13.10",
+    "@saberhq/tsconfig": "^2.0.1",
     "@types/prettier": "^2.6.1",
     "@types/react": "^17.0.45",
     "eslint": "^8.16.0",
